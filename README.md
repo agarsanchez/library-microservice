@@ -1,6 +1,5 @@
+[![CircleCI](https://circleci.com/gh/agarsanchez/library-microservice/tree/master.svg?style=svg&circle-token=7b7f6858569e7933ce30846ec0bff89e299b1ba7)](https://circleci.com/gh/agarsanchez/library-microservice/tree/master)
 # library-microservice
-
-[![CircleCI](https://circleci.com/gh/agarsanchez/library-microservice/tree/master.svg?style=svg)](https://circleci.com/gh/agarsanchez/library-microservice/tree/master)
 
 ## Base node.js microservice:
 * Built with Node.js
