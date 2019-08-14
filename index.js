@@ -1,7 +1,8 @@
 'use strict';
 
 const LOGGER = require('./logger');
+require('config');
 
 LOGGER.info(`Starting application process`, { pid: process.pid });
 
-require('./web');
+module.exports = require('./web');

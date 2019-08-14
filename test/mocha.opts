@@ -1,0 +1,4 @@
+# mocha.opts
+  --exit
+  --timeout 500
+  --ui bdd

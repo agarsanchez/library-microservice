@@ -1,0 +1,4 @@
+{
+  "LOGGER_LEVEL": "debug",
+  "PORT": "8080"
+}

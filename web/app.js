@@ -1,12 +1,15 @@
 const express = require('express');
 const logger = require('../logger');
+const repository = require('../services/books-repository');
 
 const app = express();
 
 
-app.get('/', (req, res) => {
+app.get('/book', (req, res) => {
   logger.debug(`Request received`, { method: req.method, url: req.url });
-  res.type('html').status(200).send('Hello World!');
+  return repository.getBooks().then((books) => {
+    res.type('json').status(200).send(books);
+  });
 });
 
 module.exports = app;

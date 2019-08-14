@@ -4,11 +4,15 @@
   "description": "Introduction to Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "LOGGER_LEVEL=debug PORT=8080 jest"
+    "start": "NODE_ENV=development node index.js",
+    "test": "jest --watchAll",
+    "test:bdd": "mocha"
   },
   "author": "Alberto Garcia",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^6.1.0",
     "eslint-config-google": "^0.13.0",
     "eslint-config-standard": "^13.0.1",
@@ -17,11 +21,13 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.8.0",
+    "mocha": "^6.2.0",
     "superagent": "^5.1.0",
     "supertest": "^4.0.2"
   },
   "dependencies": {
     "@hapi/joi": "^14.3.1",
+    "config": "^3.2.2",
     "express": "^4.17.1",
     "winston": "^3.2.1"
   }
