@@ -40,7 +40,7 @@ describe('App controller', () => {
   });
 
   describe('POST book', () => {
-    it('should store a book', (done) => {
+    test('should store a book', (done) => {
       request(app)
         .post('/book')
         .set('Content-Type', 'application/json')
@@ -52,6 +52,15 @@ describe('App controller', () => {
         .expect(201, {
           'url': '/book/d92d6a55-d808-48db-9faf-64246484aeee',
         }, done);
+    });
+  });
+
+  describe('Basic common checks', () => {
+    test('should reject requests with invalid content-type', (done) => {
+      request(app)
+        .get('/book')
+        .set('Content-Type', 'application/xml')
+        .expect(400, done);
     });
   });
 });
