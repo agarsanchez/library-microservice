@@ -12,4 +12,23 @@ describe('Book repository', () => {
       done();
     });
   });
+
+  test('should store a book', (done) => {
+
+    repo.addBook({
+      'author': 'J.K. Rowiling',
+      'title': 'Harry Potter and The Half-Blooded Prince',
+    }).then((book) => {
+      expect(book.author).toEqual('J.K. Rowiling');
+      expect(book.title).toEqual('Harry Potter and The Half-Blooded Prince');
+      expect(book).toHaveProperty('id');
+
+      repo.getBooks().then((books) => {
+        storedBook = books.filter(((b) => { return b.id === book.id; }))[0];
+        expect(storedBook.author).toEqual('J.K. Rowiling');
+        expect(storedBook.title).toEqual('Harry Potter and The Half-Blooded Prince');
+        done();
+      });
+    });
+  });
 });
