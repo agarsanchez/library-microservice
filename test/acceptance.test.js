@@ -10,26 +10,42 @@ chai.use(chaiHttp);
 /*
   * Test the /GET route
   */
-describe('/GET book', () => {
-  it('it should GET all the books', (done) => {
-    chai.request(server)
-      .get('/book')
-      .set('Content-Type', 'application/json')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('array');
-        res.body.length.should.be.eql(1);
-        res.body.should.be.eql([{
-          'id': 'd92d6a55-d808-48db-9faf-64246484ae2c',
-          'author': 'J.K. Rowiling',
-          'title': 'Harry Potter and The Goblet Of Fire',
-        }]);
-        done();
-      });
-  });
-});
 
 describe('Books', () => {
+  describe('/GET book', () => {
+    it('it should GET all the books', (done) => {
+      chai.request(server)
+        .get('/book')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.length.should.be.eql(1);
+          res.body.should.be.eql([{
+            'id': 'd92d6a55-d808-48db-9faf-64246484ae2c',
+            'author': 'J.K. Rowiling',
+            'title': 'Harry Potter and The Goblet Of Fire',
+          }]);
+          done();
+        });
+    });
+
+    it('it should GET a single book', (done) => {
+      chai.request(server)
+        .get('/book/d92d6a55-d808-48db-9faf-64246484ae2c')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.should.be.eql([{
+            'id': 'd92d6a55-d808-48db-9faf-64246484ae2c',
+            'author': 'J.K. Rowiling',
+            'title': 'Harry Potter and The Goblet Of Fire',
+          }]);
+          done();
+        });
+    });
+  });
 
   describe('/POST book', () => {
     it('it should POST a book', (done) => {
@@ -47,5 +63,4 @@ describe('Books', () => {
         });
     });
   });
-
 });

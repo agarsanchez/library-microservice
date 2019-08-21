@@ -19,4 +19,10 @@ addBook = (book) => {
   return Promise.resolve(book);
 };
 
-module.exports = { getBooks, addBook };
+getBook = (id) => {
+  return Promise.resolve(repo.filter((book) => {
+    return book.id === id;
+  }));
+};
+
+module.exports = { getBooks, addBook, getBook };

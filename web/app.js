@@ -33,6 +33,16 @@ app.get('/book', (req, res) => {
 });
 
 /**
+ * GET/:id
+ */
+app.get('/book/:id', (req, res) => {
+  logger.debug(`Request received`, { method: req.method, url: req.url });
+  return repository.getBook(req.params.id).then((books) => {
+    res.type('json').status(200).send(books);
+  });
+});
+
+/**
  * POST/
  */
 app.post('/book', (req, res) => {

@@ -13,6 +13,12 @@ jest.mock('../services/books-repository', () => ({
       'author': 'J.K. Rowiling',
       'title': 'Harry Potter and The Half-Blooded Prince',
     }),
+  getBook: (id) =>
+    Promise.resolve([{
+      'id': 'd92d6a55-d808-48db-9faf-64246484ae2c',
+      'author': 'J.K. Rowiling',
+      'title': 'Harry Potter and The Goblet Of Fire',
+    }]),
 }));
 
 describe('App controller', () => {
@@ -29,6 +35,18 @@ describe('App controller', () => {
     test('It should return books', (done) => {
       request(app)
         .get('/book')
+        .set('Content-Type', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, [{
+          'id': 'd92d6a55-d808-48db-9faf-64246484ae2c',
+          'author': 'J.K. Rowiling',
+          'title': 'Harry Potter and The Goblet Of Fire',
+        }], done);
+    });
+
+    test('It should return a single book', (done) => {
+      request(app)
+        .get('/book/d92d6a55-d808-48db-9faf-64246484ae2c')
         .set('Content-Type', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200, [{

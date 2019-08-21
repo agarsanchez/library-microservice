@@ -13,6 +13,17 @@ describe('Book repository', () => {
     });
   });
 
+  test('should return a single book', (done) => {
+    repo.getBook('d92d6a55-d808-48db-9faf-64246484ae2c').then((book) => {
+      expect(book).toEqual([{
+        'id': 'd92d6a55-d808-48db-9faf-64246484ae2c',
+        'author': 'J.K. Rowiling',
+        'title': 'Harry Potter and The Goblet Of Fire',
+      }]);
+      done();
+    });
+  });
+
   test('should store a book', (done) => {
 
     repo.addBook({
