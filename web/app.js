@@ -2,6 +2,8 @@ const express = require('express');
 const logger = require('../logger');
 const repository = require('../services/books-repository');
 const errorHandler = require('./error-handler');
+const contentTypeHandler = require('./content-type-handler');
+
 const app = express();
 
 /**
@@ -13,14 +15,7 @@ app.use(express.json());
  * Basic common thecks:
  * Content-Type validation
  */
-app.use('/', (req, res, next) => {
-  const contype = req.headers['content-type'];
-  if (!contype || contype.indexOf('application/json') !== 0) {
-    logger.debug(`Request content type not handled`, { method: req.method, url: req.url });
-    return res.sendStatus(400);
-  }
-  next();
-});
+app.use('/', contentTypeHandler);
 
 /**
  * GET/
