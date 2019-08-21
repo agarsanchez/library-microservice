@@ -76,8 +76,9 @@ describe('App controller', () => {
   describe('Basic common checks', () => {
     test('should reject requests with invalid content-type', (done) => {
       request(app)
-        .get('/book')
+        .post('/book')
         .set('Content-Type', 'application/xml')
+        .send('<somexml></somexml>')
         .expect(400, done);
     });
   });

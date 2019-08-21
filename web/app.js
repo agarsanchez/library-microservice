@@ -2,25 +2,15 @@ const express = require('express');
 const logger = require('../logger');
 const repository = require('../services/books-repository');
 const errorHandler = require('./error-handler');
-const contentTypeHandler = require('./content-type-handler');
+const { jsonContentTypeFilter } = require('./filters');
 
-const app = express();
-
-/**
- * Allow body content handling
- */
-app.use(express.json());
-
-/**
- * Basic common thecks:
- * Content-Type validation
- */
-app.use('/', contentTypeHandler);
+const controller = express();
+const jsonBodyParser = express.json();
 
 /**
  * GET/
  */
-app.get('/book', (req, res) => {
+controller.get('/book', (req, res) => {
   logger.debug(`Request received`, { method: req.method, url: req.url });
   return repository.getBooks().then((books) => {
     res.type('json').status(200).send(books);
@@ -30,7 +20,7 @@ app.get('/book', (req, res) => {
 /**
  * GET/:id
  */
-app.get('/book/:id', (req, res) => {
+controller.get('/book/:id', (req, res) => {
   logger.debug(`Request received`, { method: req.method, url: req.url });
   return repository.getBook(req.params.id).then((books) => {
     res.type('json').status(200).send(books);
@@ -40,7 +30,7 @@ app.get('/book/:id', (req, res) => {
 /**
  * POST/
  */
-app.post('/book', (req, res) => {
+controller.post('/book', jsonContentTypeFilter, jsonBodyParser, (req, res) => {
   logger.debug(`Request received`, { method: req.method, url: req.url });
   return repository.addBook(req.body).then((book) => {
     res.type('json').status(201).send({ 'url': `/book/${book.id}` });
@@ -49,7 +39,8 @@ app.post('/book', (req, res) => {
 
 /**
  * Error handling:
+ * Goes at the end so it can catch all errors
  */
-app.use('/', errorHandler);
+controller.use('/', errorHandler);
 
-module.exports = app;
+module.exports = controller;
