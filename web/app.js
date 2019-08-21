@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('../logger');
 const repository = require('../services/books-repository');
-
+const errorHandler = require('./error-handler');
 const app = express();
 
 /**
@@ -52,5 +52,9 @@ app.post('/book', (req, res) => {
   });
 });
 
+/**
+ * Error handling:
+ */
+app.use('/', errorHandler);
 
 module.exports = app;

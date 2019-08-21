@@ -81,4 +81,15 @@ describe('App controller', () => {
         .expect(400, done);
     });
   });
+
+  describe('Error handling', () => {
+    test('It should return an error when internal error', (done) => {
+      request(app)
+        .post('/book')
+        .set('Content-Type', 'application/json')
+        .send('rubbish')
+        .expect('Content-Type', /json/)
+        .expect(500, { 'error': 'Internal server error' }, done);
+    });
+  });
 });
