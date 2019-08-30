@@ -63,4 +63,19 @@ describe('Books', () => {
         });
     });
   });
+
+  describe('/OPTIONS book', () => {
+
+    it('it should return all book options available', (done) => {
+      chai.request(server)
+        .options('/book')
+        .set('Content-Type', 'application/json')
+        .send()
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.have.header('Allow', 'GET,HEAD,POST');
+          done();
+        });
+    });
+  });
 });
